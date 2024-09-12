@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { Button } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -15,7 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { LogIn, LogOut } from 'lucide-react';
+import { LogIn, LogOut, User2 } from 'lucide-react';
+import Link from 'next/link';
 
 
 function GitSession()  {
@@ -33,9 +34,9 @@ function GitSession()  {
         )}
         <div className="flex flex-col items-center justify-center">
           <p className="text-lg font-bold">{user.name}</p>
-          <p className="text-sm my-1 text-white/40">@{user.email}</p>
+          <p className="text-sm my-1 text-white/40">{user.email}</p>
         </div>
-        {/* <Button className='w-full p-3 font-serif text-xl border border-white rounded-lg' onClick={()=> signOut()}>logout</Button> */}
+        <div className='flex flex-row gap-3 justify-center items-center'>
         <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className='gap-2'><LogOut size={23}/>LogOut</Button>
@@ -54,6 +55,8 @@ function GitSession()  {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+    <Link href="/account" className={buttonVariants({variant:"outline"})+"flex gap-2 space-y-0 items-center justify-center"}> <User2 size={24}/> Account</Link>
+        </div>
         </div>
       )
   return (
