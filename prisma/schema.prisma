@@ -52,8 +52,12 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  ownedCourses courseOnUser[]
+  lessons lessonOnUser[]
   accounts      Account[]
   sessions      Session[]
+  createdCourses         course[]
 }
 
 model VerificationToken {
@@ -65,4 +69,58 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
+model course{
+  id String @id @default(cuid())  
+  name String 
+  presantation String // markdown
+  photo String
+  createdAt DateTime @default(now())
+  creatorId String   @map("userid")  
+  creator User @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  users courseOnUser[]
+  lessons lesson[]
+}
 
+model lesson{
+id String @id @default(cuid())
+name String
+rank String
+content String
+state lessonState @default(HIDDEN)
+creatAt DateTime @default(now())
+course course @relation(fields: [courseId], references: [id])
+courseId String
+users lessonOnUser[]
+}
+
+enum lessonState{
+  HIDDEN
+  PUBLISHED
+  PUBLIC
+}
+model lessonOnUser{
+id String @id @default(cuid())
+userId String
+lessonId String
+progress progress @default(NOT_STARTED)
+createAt DateTime @default(now())
+user User @relation(fields: [userId], references: [id])
+lesson lesson @relation(fields: [lessonId], references: [id])
+@@unique([userId,lessonId])
+}
+
+enum progress{
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+model courseOnUser{
+id String @id @default(cuid())
+userId String
+courseId String
+createAt DateTime @default(now())
+canceledAt DateTime?
+user User @relation(fields:[userId], references:[id])
+course course @relation(fields: [courseId], references: [id])
+@@unique([userId,courseId])
+}
