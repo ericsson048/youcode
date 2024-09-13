@@ -24,7 +24,7 @@ export default async function CoursesPage() {
         <LayoutTitle>Courses</LayoutTitle>
       </LayoutHeader>
       <LayoutContent>
-        <Link href="/admin/courses">Courses</Link>
+        <Link href="/admin/cours">Courses</Link>
       </LayoutContent>
     </Layout>
   );

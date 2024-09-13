@@ -36,8 +36,10 @@ import { getAllCours } from '@/lib/action';
             <CardContent className="mt-4">
               <Table>
                 <TableHeader>
+                  <TableRow>
                   <TableHead>Image</TableHead>
                   <TableHead>Name</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   {courses.map((course) => (
@@ -54,7 +56,7 @@ import { getAllCours } from '@/lib/action';
                         <Typography
                           as={Link}
                           variant="large"
-                          href={`/admin/courses/${course.id}`}>
+                          href={`/admin/cours/${course.id}`}>
                           {course.name}
                         </Typography>
                       </TableCell>
